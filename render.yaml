@@ -4,16 +4,15 @@
 databases:
   - name: placeprep-db
     plan: free
-    region: singapore
-    databaseName: placeprep
-    user: placeprep
+    # Must match the API's region so it can use the database's internal address.
+    region: ohio
 
 services:
   - type: web
     name: placeprep-api
     runtime: python
     plan: free
-    region: singapore
+    region: ohio
     rootDir: backend
     buildCommand: pip install -r requirements.txt
     # Migrations and the content seed are safe to run on every start.
