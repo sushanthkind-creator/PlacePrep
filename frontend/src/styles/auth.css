@@ -1,0 +1,204 @@
+/* Register and complete-profile pages share the landing page's dark look. */
+.auth-page {
+  min-height: 100vh;
+  background-color: var(--bg);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  color: var(--text);
+}
+
+.auth-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px clamp(16px, 4vw, 40px);
+}
+
+.auth-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 560px);
+  align-items: center;
+  gap: 48px;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: clamp(16px, 4vw, 48px) clamp(16px, 4vw, 40px) 64px;
+}
+
+.auth-main--single {
+  grid-template-columns: minmax(0, 480px);
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.auth-intro {
+  display: grid;
+  gap: 18px;
+}
+
+.auth-kicker,
+.login-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 10px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--verbal);
+}
+
+.auth-kicker::before,
+.login-kicker::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.auth-headline {
+  max-width: 14ch;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.auth-faces {
+  display: flex;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.auth-faces span {
+  display: grid;
+  grid-template-columns: repeat(3, 18px);
+  gap: 4px;
+  padding: 8px;
+  border-radius: 12px;
+  background: var(--plate);
+}
+
+.auth-faces i {
+  width: 18px;
+  height: 18px;
+  border-radius: 28%;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.auth-faces i:nth-child(odd) {
+  background: var(--tone);
+}
+
+.auth-card,
+.login-card {
+  padding: clamp(22px, 3vw, 34px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow);
+}
+
+.auth-title,
+.login-title {
+  margin: 0;
+  font-size: clamp(1.6rem, 2.4vw, 2rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.auth-sub,
+.login-sub {
+  margin: 10px 0 22px;
+  color: var(--muted);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 14px;
+}
+
+.field--wide {
+  grid-column: 1 / -1;
+}
+
+.auth-submit,
+.login-submit {
+  width: 100%;
+  margin-top: 6px;
+}
+
+.login-notice {
+  margin: -8px 0 16px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--warn-soft);
+  font-size: 0.9rem;
+}
+
+.form-notice {
+  min-height: 1.2em;
+  margin: 12px 0 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.form-notice--error {
+  color: var(--wrong);
+}
+
+.login-footer {
+  margin: 18px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.login-footer a {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.google-signin {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  font-size: 0.82rem;
+  color: var(--faint);
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+@media (max-width: 860px) {
+  .auth-main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .auth-intro {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

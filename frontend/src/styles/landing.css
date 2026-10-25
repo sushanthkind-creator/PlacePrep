@@ -1,0 +1,397 @@
+/* The landing page is always dark (tokens forced in global.css). */
+.landing {
+  min-height: 100vh;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(155, 140, 255, 0.14), transparent 70%),
+    radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 100% 100%, 28px 28px;
+  background-attachment: fixed;
+  color: var(--text);
+}
+
+/* ---- Top bar ------------------------------------------------------------ */
+.topbar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px clamp(16px, 4vw, 40px);
+  background: linear-gradient(to bottom, rgba(10, 11, 15, 0.85), rgba(10, 11, 15, 0));
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ---- Hero header -------------------------------------------------------- */
+.hero {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px clamp(16px, 6vw, 96px) 64px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.hero-eyebrow {
+  margin: 0 0 28px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hero-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.2rem, 9.6vw, 7.6rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.hero-title .line {
+  display: block;
+  white-space: nowrap;
+}
+
+.hero-title .line:last-child {
+  background: linear-gradient(90deg, var(--logical), var(--quant) 55%, var(--verbal));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-sub {
+  max-width: 34ch;
+  margin: 32px 0 0;
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  color: var(--muted);
+}
+
+.scroll-cue {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 64px;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.scroll-track {
+  position: relative;
+  width: 1px;
+  height: 44px;
+  background: var(--border-strong);
+}
+
+.scroll-dot {
+  position: absolute;
+  top: 0;
+  left: -2px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--text);
+}
+
+.landing:not(.is-reduced-motion) [data-fade] {
+  opacity: 0;
+}
+
+/* ---- Pinned cube stage --------------------------------------------------- */
+.solve {
+  position: relative;
+  height: 520vh;
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.is-reduced-motion .solve {
+  height: auto;
+}
+
+.is-reduced-motion .stage {
+  position: relative;
+  min-height: 640px;
+}
+
+.cube-mount {
+  position: absolute;
+  inset: 0;
+}
+
+.cube-canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  cursor: grab;
+  touch-action: pan-y;
+  outline: none;
+}
+
+.cube-canvas.is-grabbing {
+  cursor: grabbing;
+}
+
+.cube-canvas:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+
+.cube-loading,
+.cube-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.stage-hint {
+  position: absolute;
+  top: 96px;
+  left: 50%;
+  translate: -50% 0;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.stage-hint span {
+  color: var(--text);
+}
+
+/* ---- Section callouts ----------------------------------------------------- */
+.callouts {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.callout-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.callout-line {
+  fill: none;
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+
+.callout-line--logical { stroke: var(--logical); }
+.callout-line--quant { stroke: var(--quant); }
+.callout-line--verbal { stroke: var(--verbal); }
+
+.callout-dot {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  translate: -50% -50%;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.06), 0 0 18px currentColor;
+}
+
+.callout-dot--logical { background: var(--logical); color: var(--logical); }
+.callout-dot--quant { background: var(--quant); color: var(--quant); }
+.callout-dot--verbal { background: var(--verbal); color: var(--verbal); }
+
+.callout {
+  position: absolute;
+  translate: -50% -50%;
+  display: grid;
+  gap: 2px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-left: 2px solid currentColor;
+  border-radius: 8px;
+  background: rgba(10, 11, 15, 0.7);
+  backdrop-filter: blur(8px);
+  white-space: nowrap;
+}
+
+.callout--logical { color: var(--logical); }
+.callout--quant { color: var(--quant); }
+.callout--verbal { color: var(--verbal); }
+
+.callout-title {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.callout-meta {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.landing:not(.is-reduced-motion) .callout,
+.landing:not(.is-reduced-motion) .callout-dot {
+  opacity: 0;
+}
+
+/* ---- Solve scrubber -------------------------------------------------------- */
+.scrubber-wrap {
+  position: absolute;
+  bottom: clamp(16px, 4vh, 36px);
+  left: 50%;
+  translate: -50% 0;
+  pointer-events: none;
+}
+
+.scrubber {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 18px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(18, 20, 28, 0.82);
+  backdrop-filter: blur(12px);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.scrubber-label {
+  min-width: 9ch;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.scrubber-ticks {
+  display: flex;
+  gap: 3px;
+}
+
+.tick {
+  width: 4px;
+  height: 14px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.12);
+  transition: background-color 0.25s, transform 0.25s;
+}
+
+.tick.is-done {
+  background: var(--verbal);
+}
+
+.tick.is-current {
+  background: var(--text);
+  transform: scaleY(1.3);
+}
+
+.scrubber-count {
+  color: var(--text);
+}
+
+.scrubber-next {
+  min-width: 8ch;
+}
+
+.scrubber-next b {
+  font-weight: 500;
+  color: var(--logical);
+}
+
+/* ---- Login card ------------------------------------------------------------- */
+.login-dock {
+  --reveal: 0;
+  position: absolute;
+  top: 50%;
+  right: clamp(16px, 7vw, 120px);
+  translate: 0 -50%;
+  width: min(420px, 40vw);
+}
+
+/* Card visuals live in auth.css; here it only slides in with the scroll. */
+.login-dock .login-card {
+  opacity: var(--reveal);
+  transform: translate3d(calc((1 - var(--reveal)) * 56px), 0, 0) scale(calc(0.96 + var(--reveal) * 0.04));
+}
+
+/* ---- Responsive -------------------------------------------------------------- */
+@media (max-width: 960px) {
+  .callouts {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .topbar .btn-ghost {
+    padding: 8px 6px;
+  }
+
+  .scroll-cue {
+    margin-top: 48px;
+  }
+
+  .stage-hint {
+    top: 80px;
+    font-size: 0.72rem;
+  }
+
+  .stage-hint span {
+    display: block;
+    text-align: center;
+  }
+
+  .scrubber {
+    gap: 10px;
+    padding: 8px 14px;
+  }
+
+  .scrubber-ticks {
+    display: none;
+  }
+
+  .login-dock {
+    top: auto;
+    right: 16px;
+    bottom: 16px;
+    left: 16px;
+    width: auto;
+    translate: none;
+  }
+
+  .login-dock .login-card {
+    transform: translate3d(0, calc((1 - var(--reveal)) * 48px), 0);
+    padding: 22px;
+  }
+
+  .login-sub {
+    margin-bottom: 16px;
+  }
+}

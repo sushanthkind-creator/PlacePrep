@@ -1,0 +1,261 @@
+.dash-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px 32px;
+}
+
+.dash-header > div:first-child {
+  display: grid;
+  gap: 10px;
+}
+
+/* ---- Your cube ------------------------------------------------------------------- */
+.cube-panel-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px 24px;
+  margin-bottom: 16px;
+}
+
+.cube-panel-head .block-title {
+  margin-bottom: 4px;
+}
+
+.cube-progress {
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.cube-progress .mono {
+  color: var(--text);
+  font-size: 1.05rem;
+}
+
+.learning-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.learning-card {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.learning-card-head {
+  display: grid;
+  gap: 4px;
+}
+
+.learning-card h3 {
+  font-size: 1.04rem;
+  font-weight: 600;
+}
+
+.learning-card h3 a {
+  text-decoration: none;
+}
+
+.learning-card h3 a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.learning-card-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 0;
+}
+
+.learning-card-stats dt,
+.stat-strip dt,
+.profile-summary dt,
+.mini-stats dt {
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+
+.learning-card-stats dd {
+  margin: 2px 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.98rem;
+}
+
+/* ---- Stats strip ----------------------------------------------------------------- */
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.stat-strip > div {
+  padding: 18px 22px;
+}
+
+.stat-strip > div + div {
+  border-left: 1px solid var(--border);
+}
+
+.stat-strip dd {
+  margin: 6px 0 0;
+  font-family: var(--font-mono);
+  font-size: 1.7rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.stat-strip dd .muted {
+  font-size: 1rem;
+}
+
+/* ---- Lower grid ------------------------------------------------------------------ */
+.dash-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.result-list,
+.weak-list {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.result-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px;
+  margin-inline: -12px;
+  border-radius: 12px;
+  text-decoration: none;
+}
+
+.result-row:hover {
+  background: var(--surface-2);
+}
+
+.result-title {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  font-weight: 500;
+}
+
+.result-title .muted {
+  font-size: 0.82rem;
+  font-weight: 400;
+}
+
+.result-score {
+  font-size: 1.05rem;
+}
+
+.strength {
+  display: grid;
+  gap: 2px;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+
+.strength .muted {
+  font-size: 0.82rem;
+}
+
+.strength-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.weak-list li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.weak-list li:last-child {
+  border-bottom: 0;
+}
+
+.weak-name {
+  display: grid;
+  font-weight: 500;
+}
+
+.weak-name .muted {
+  font-size: 0.82rem;
+  font-weight: 400;
+}
+
+.weak-list .sticker {
+  background: var(--tone);
+}
+
+.profile-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+}
+
+.profile-summary dd {
+  margin: 2px 0 0;
+  overflow-wrap: anywhere;
+}
+
+.progress-chart {
+  margin: 0;
+}
+
+/* ---- Profile page -------------------------------------------------------------------- */
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.profile-grid > section {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 860px) {
+  .dash-grid,
+  .profile-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .stat-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat-strip > div:nth-child(3) {
+    border-left: 0;
+  }
+
+  .stat-strip > div:nth-child(n + 3) {
+    border-top: 1px solid var(--border);
+  }
+}
