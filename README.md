@@ -156,6 +156,24 @@ The suite (214 tests) covers:
 - dashboard accuracy
 - content integrity: 4 options and exactly 1 answer per question, recomputed Quant answer keys, and idempotent seeding
 
+## Deploying (Render + Vercel)
+
+The backend runs on **Render** with a PostgreSQL database; the frontend runs on **Vercel**.
+
+**1. Backend on Render.** The repository includes `render.yaml`, which creates both the database and the API.
+
+1. Sign in at https://render.com with GitHub.
+2. Choose **New → Blueprint** and select this repository.
+3. Render asks for `CORS_ORIGINS`: enter your Vercel address, such as `https://placeprep.vercel.app` (no trailing slash). If you don't know it yet, enter a placeholder and fix it later under the service's **Environment** tab.
+4. Click **Apply**. The first build takes a few minutes. Each start runs the migrations and loads the content automatically.
+5. Open `https://<your-service>.onrender.com/api/health`. It should show `{"status":"ok"}`.
+
+**2. Frontend on Vercel.** Import the repository with Root Directory `frontend` and the Vite preset. Add the environment variable `VITE_API_BASE_URL` = `https://<your-service>.onrender.com/api`, then deploy (or redeploy if you change it).
+
+**3. Connect them.** Make sure `CORS_ORIGINS` on Render exactly matches the Vercel address, then save so the service restarts.
+
+Notes on Render's free plan: the API sleeps after about 15 minutes without traffic, so the first request after that takes roughly 30–60 seconds. Free PostgreSQL databases expire after about 30 days unless upgraded.
+
 ## API reference
 
 See [docs/API.md](docs/API.md).

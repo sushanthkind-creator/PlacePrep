@@ -1,0 +1,35 @@
+# Render Blueprint: creates the PostgreSQL database and the Flask API together.
+# In Render: New → Blueprint → pick this repository → enter CORS_ORIGINS → Apply.
+
+databases:
+  - name: placeprep-db
+    plan: free
+    region: singapore
+    databaseName: placeprep
+    user: placeprep
+
+services:
+  - type: web
+    name: placeprep-api
+    runtime: python
+    plan: free
+    region: singapore
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    # Migrations and the content seed are safe to run on every start.
+    startCommand: flask --app run db upgrade && flask --app run seed && gunicorn run:app --bind 0.0.0.0:$PORT --workers 2 --timeout 60
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: DATABASE_URL
+        fromDatabase:
+          name: placeprep-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: CORS_ORIGINS
+        # Your Vercel address, e.g. https://placeprep.vercel.app (Render asks for it).
+        sync: false

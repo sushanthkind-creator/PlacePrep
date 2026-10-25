@@ -11,3 +11,6 @@ python-dotenv==1.1.1
 google-auth==2.40.3
 requests==2.32.5
 pytest==8.4.1
+# Production server and PostgreSQL driver (used on Render; harmless locally)
+gunicorn==23.0.0
+psycopg[binary]==3.2.3

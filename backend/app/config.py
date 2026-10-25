@@ -16,6 +16,10 @@ def _split_origins(value):
 
 def _database_url():
     url = os.getenv("DATABASE_URL", "sqlite:///placeprep.db").strip()
+    # Hosts like Render hand out postgres:// URLs; SQLAlchemy needs the psycopg (v3) driver named.
+    for prefix in ("postgres://", "postgresql://"):
+        if url.startswith(prefix):
+            return "postgresql+psycopg://" + url[len(prefix):]
     # Relative SQLite paths are stored in backend/instance/ so the location doesn't depend on the cwd.
     if url.startswith("sqlite:///") and ":memory:" not in url:
         name = url[len("sqlite:///"):]
