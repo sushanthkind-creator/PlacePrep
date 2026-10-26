@@ -81,14 +81,15 @@ export default function LandingPage({ jumpToLogin = false }) {
     };
   }, [reducedMotion, applyProgress]);
 
-  // /login lands directly on the solved cube + login card.
-  // The browser restores scroll after load, so take over restoration and jump again once settled.
+  // "/" always opens at the header; "/login" lands directly on the solved cube + login card.
+  // Browsers restore the last scroll position on reload (which would replay the solve on its own),
+  // so take over restoration and jump again once the page has settled.
   useEffect(() => {
-    if (!jumpToLogin) return undefined;
     const previous = window.history.scrollRestoration;
     window.history.scrollRestoration = 'manual';
-    wantsFocusRef.current = true;
-    const jump = () => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' });
+    if (jumpToLogin) wantsFocusRef.current = true;
+    const jump = () =>
+      window.scrollTo({ top: jumpToLogin ? document.documentElement.scrollHeight : 0, behavior: 'instant' });
     const frame = requestAnimationFrame(jump);
     const timer = setTimeout(jump, 250);
     window.addEventListener('load', jump, { once: true });
