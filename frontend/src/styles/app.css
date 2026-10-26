@@ -269,6 +269,104 @@
   color: var(--correct);
 }
 
+/* ---- Cursor follower (desktop only; see CursorFollower.jsx) ---------------------------- */
+.cursor-ring,
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.cursor-ring {
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid color-mix(in srgb, var(--text) 55%, transparent);
+  background: color-mix(in srgb, var(--text) 4%, transparent);
+}
+
+.cursor-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--text);
+}
+
+.cursor-ring.is-visible,
+.cursor-dot.is-visible {
+  opacity: 1;
+}
+
+/* ---- Score trend chart (see ProgressChart.jsx) --------------------------------------------- */
+.trend-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: trend-pulse 1.8s ease-out infinite;
+}
+
+@keyframes trend-pulse {
+  0% { transform: scale(1); opacity: 0.55; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+/* ---- Tilting cards (see useTilt.js) ------------------------------------------------------ */
+.tilt-card {
+  --rx: 0deg;
+  --ry: 0deg;
+  --mx: 50%;
+  --my: 50%;
+  --glow: 0;
+  position: relative;
+  isolation: isolate;
+  transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.tilt-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Soft light that follows the cursor across the card. */
+.tilt-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    380px circle at var(--mx) var(--my),
+    color-mix(in srgb, var(--tone, var(--text)) 18%, transparent),
+    transparent 62%
+  );
+  opacity: var(--glow);
+  pointer-events: none;
+}
+
+/* Edge highlight nearest the cursor. */
+.tilt-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: radial-gradient(
+    240px circle at var(--mx) var(--my),
+    color-mix(in srgb, var(--tone, var(--text)) 85%, transparent),
+    transparent 70%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: var(--glow);
+  pointer-events: none;
+}
+
 /* ---- Responsive shell -------------------------------------------------------------- */
 @media (max-width: 959px) {
   .app-main {

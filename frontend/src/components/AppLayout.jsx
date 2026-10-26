@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
+import CursorFollower from './CursorFollower.jsx';
 import Navbar from './Navbar.jsx';
 import Sidebar from './Sidebar.jsx';
 
@@ -23,6 +24,7 @@ export default function AppLayout() {
       <main id="main" className="app-main" tabIndex={-1}>
         <Outlet />
       </main>
+      <CursorFollower />
     </div>
   );
 }

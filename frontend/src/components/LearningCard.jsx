@@ -1,18 +1,20 @@
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { formatPercent } from '../utils/formatting.js';
 import { sectionPath } from '../utils/sections.js';
+import useTilt from '../utils/useTilt.js';
 import StickerFace from './StickerFace.jsx';
 
 export default function LearningCard({ section }) {
+  const ref = useRef(null);
+  useTilt(ref);
   const path = sectionPath(section.slug);
   return (
-    <article className="learning-card" data-tone={section.slug}>
+    <article ref={ref} className="learning-card tilt-card" data-tone={section.slug} data-tilt>
       <header className="learning-card-head">
         <p className="eyebrow tone-text">{section.short_name}</p>
         <h3>
-          <Link to={path} className="stretched-link">
-            {section.name}
-          </Link>
+          <Link to={path}>{section.name}</Link>
         </h3>
       </header>
       <StickerFace tone={section.slug} topics={section.topics} label={`${section.short_name} topics`} />

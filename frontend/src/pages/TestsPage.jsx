@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { listTests } from '../api/tests.js';
 import ErrorMessage from '../components/ErrorMessage.jsx';
 import Loading from '../components/Loading.jsx';
 import { formatPercent } from '../utils/formatting.js';
 import useAsync from '../utils/useAsync.js';
+import useTilt from '../utils/useTilt.js';
 import '../styles/test.css';
 
 const FILTERS = [
@@ -39,6 +40,25 @@ function Stats({ stats }) {
   );
 }
 
+function TestCard({ test }) {
+  const ref = useRef(null);
+  useTilt(ref);
+  return (
+    <article ref={ref} className="test-card tilt-card" data-tone={test.section_slug || 'mixed'} data-tilt>
+      <p className="eyebrow tone-text">{test.scope === 'mixed' ? 'All sections' : test.section_name}</p>
+      <h3>{test.title}</h3>
+      <p className="muted">{test.description}</p>
+      <p className="test-card-meta mono">
+        {test.default_question_count} Q · {test.default_duration_minutes} min
+      </p>
+      <div className="test-card-foot">
+        <Stats stats={test.my_stats} />
+        <TestAction test={test} />
+      </div>
+    </article>
+  );
+}
+
 export default function TestsPage() {
   const { status, data, error, reload } = useAsync(() => listTests(), []);
   const [filter, setFilter] = useState('all');
@@ -65,18 +85,7 @@ export default function TestsPage() {
         </h2>
         <div className="test-card-grid">
           {featured.map((test) => (
-            <article key={test.id} className="test-card" data-tone={test.section_slug || 'mixed'}>
-              <p className="eyebrow tone-text">{test.scope === 'mixed' ? 'All sections' : `${test.section_name}`}</p>
-              <h3>{test.title}</h3>
-              <p className="muted">{test.description}</p>
-              <p className="test-card-meta mono">
-                {test.default_question_count} Q · {test.default_duration_minutes} min
-              </p>
-              <div className="test-card-foot">
-                <Stats stats={test.my_stats} />
-                <TestAction test={test} />
-              </div>
-            </article>
+            <TestCard key={test.id} test={test} />
           ))}
         </div>
       </section>

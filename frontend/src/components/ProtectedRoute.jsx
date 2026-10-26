@@ -14,7 +14,7 @@ export default function ProtectedRoute({ allowIncompleteProfile = false }) {
       <div className="page-center">
         <ErrorMessage
           title="Can't reach the server"
-          error="PlacePrep couldn't contact its server. Check that the backend is running, then try again."
+          error="PlacePrep couldn't contact its server. It may be starting up; wait a minute, then try again."
           onRetry={retry}
         />
       </div>

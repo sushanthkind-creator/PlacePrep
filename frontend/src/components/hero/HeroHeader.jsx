@@ -1,22 +1,44 @@
 import { useEffect, useRef } from 'react';
 import { animate, scrambleText, stagger } from 'animejs';
+import { measureLetters, startBend } from './bendText.js';
 
 const TITLE_LINES = ['Every placement', 'is a puzzle.'];
+
+function Letters({ text }) {
+  return [...text].map((char, i) =>
+    char === ' ' ? (
+      <span key={i} className="char space">
+        {' '}
+      </span>
+    ) : (
+      <span key={i} className="char">
+        {char}
+      </span>
+    ),
+  );
+}
 
 export default function HeroHeader({ reducedMotion }) {
   const rootRef = useRef(null);
 
   useEffect(() => {
-    if (reducedMotion) return undefined;
     const root = rootRef.current;
-    const lines = root.querySelectorAll('.hero-title .line');
+    if (reducedMotion) {
+      // Still place the gradient correctly on the static headline.
+      measureLetters(root);
+      return undefined;
+    }
+
+    const letters = root.querySelectorAll('.hero-title .char:not(.space)');
     const fades = root.querySelectorAll('[data-fade]');
     const dot = root.querySelector('.scroll-dot');
+    const finePointer = window.matchMedia('(pointer: fine)').matches;
 
     const animations = [
-      animate(lines, {
-        innerHTML: scrambleText({ chars: 'A-Z!%#_', perturbation: 0.4 }),
-        delay: stagger(260, { start: 150 }),
+      // Each letter scrambles and settles, left to right.
+      animate(letters, {
+        innerHTML: scrambleText({ chars: 'A-Z!%#_' }),
+        delay: stagger(32, { start: 150 }),
       }),
       animate(fades, {
         opacity: [0, 1],
@@ -33,7 +55,12 @@ export default function HeroHeader({ reducedMotion }) {
         loop: true,
       }),
     ];
-    return () => animations.forEach((a) => a.revert());
+    const stopBend = startBend(root, { cursor: finePointer });
+
+    return () => {
+      stopBend();
+      animations.forEach((a) => a.revert());
+    };
   }, [reducedMotion]);
 
   return (
@@ -43,9 +70,9 @@ export default function HeroHeader({ reducedMotion }) {
         <span aria-hidden="true">·</span> Verbal
       </p>
       <h1 className="hero-title" aria-label={TITLE_LINES.join(' ')}>
-        {TITLE_LINES.map((line) => (
-          <span className="line" aria-hidden="true" key={line}>
-            {line}
+        {TITLE_LINES.map((line, i) => (
+          <span className={`line${i === TITLE_LINES.length - 1 ? ' line--accent' : ''}`} aria-hidden="true" key={line}>
+            <Letters text={line} />
           </span>
         ))}
       </h1>

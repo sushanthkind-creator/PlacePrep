@@ -56,7 +56,11 @@ export async function request(path, { method = 'GET', body, auth = true, signal 
     });
   } catch (err) {
     if (err.name === 'AbortError') throw err;
-    throw new ApiError(0, "Can't reach the PlacePrep server. Check that the backend is running on port 5000.", 'network');
+    throw new ApiError(
+      0,
+      `Can't reach the PlacePrep server at ${BASE_URL}. It may be starting up (try again in a minute), or blocked by CORS settings.`,
+      'network',
+    );
   }
 
   const data = await response.json().catch(() => null);

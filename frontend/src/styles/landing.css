@@ -59,12 +59,24 @@
 }
 
 .hero-title .line {
+  position: relative;
   display: block;
   white-space: nowrap;
 }
 
-.hero-title .line:last-child {
+/* Each letter moves on its own (see bendText.js). */
+.hero-title .char {
+  display: inline-block;
+  transform-origin: 50% 80%;
+  will-change: transform;
+}
+
+/* The gradient is painted per letter, offset so it reads as one gradient across the line. */
+.hero-title .line--accent .char {
   background: linear-gradient(90deg, var(--logical), var(--quant) 55%, var(--verbal));
+  background-size: var(--line-w, 100%) 100%;
+  background-position: calc(var(--char-x, 0px) * -1) 0;
+  background-repeat: no-repeat;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
