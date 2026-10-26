@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { getDashboard } from '../api/dashboard.js';
 import EmptyState from '../components/EmptyState.jsx';
 import ErrorMessage from '../components/ErrorMessage.jsx';
+import TiltPanel from '../components/TiltPanel.jsx';
 import LearningCard from '../components/LearningCard.jsx';
 import Loading from '../components/Loading.jsx';
 import ProgressChart from '../components/ProgressChart.jsx';
@@ -98,7 +99,7 @@ export default function DashboardPage() {
       </dl>
 
       <div className="dash-grid">
-        <section className="panel" aria-labelledby="recent-heading">
+        <TiltPanel className="panel" aria-labelledby="recent-heading">
           <div className="panel-head">
             <h2 id="recent-heading" className="block-title">
               Recent results
@@ -132,9 +133,9 @@ export default function DashboardPage() {
               })}
             </ul>
           )}
-        </section>
+        </TiltPanel>
 
-        <section className="panel" aria-labelledby="trend-heading">
+        <TiltPanel className="panel" aria-labelledby="trend-heading">
           <h2 id="trend-heading" className="block-title">
             Score trend
           </h2>
@@ -145,9 +146,9 @@ export default function DashboardPage() {
           ) : (
             <ProgressChart points={trend} />
           )}
-        </section>
+        </TiltPanel>
 
-        <section className="panel" aria-labelledby="strength-heading">
+        <TiltPanel className="panel" aria-labelledby="strength-heading" tone={strongest?.slug}>
           <h2 id="strength-heading" className="block-title">
             Strengths and gaps
           </h2>
@@ -190,9 +191,9 @@ export default function DashboardPage() {
                 : 'Topics where your test accuracy is below 70% will be listed here.'}
             </p>
           )}
-        </section>
+        </TiltPanel>
 
-        <section className="panel" aria-labelledby="profile-heading">
+        <TiltPanel className="panel" aria-labelledby="profile-heading">
           <div className="panel-head">
             <h2 id="profile-heading" className="block-title">
               Profile
@@ -219,7 +220,7 @@ export default function DashboardPage() {
               <dd>{user.mobile}</dd>
             </div>
           </dl>
-        </section>
+        </TiltPanel>
       </div>
     </div>
   );
